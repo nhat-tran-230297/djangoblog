@@ -13,14 +13,15 @@ class Profile(models.Model):
 
     # resize the image
     # overwrite the save() method
-    def save(self):
-        # execute the save() method
-        super().save()
+    
+    # def save(self):
+    #     # execute the save() method
+    #     super().save(*args, **kwargs)
 
-        # resize the image
-        new_image = Image.open(self.image.path)
+    #     # resize the image
+    #     new_image = Image.open(self.image.path)
 
-        if new_image.height > 300 or new_image.width > 300:
-            output_size = (300, 300)
-            new_image.thumbnail(size=output_size)
-            new_image.save(fp=self.image.path)
+    #     if new_image.height > 300 or new_image.width > 300:
+    #         output_size = (300, 300)
+    #         new_image.thumbnail(size=output_size)
+    #         new_image.save(fp=self.image.path)

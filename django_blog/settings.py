@@ -20,12 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#zgu%5u47!@vk%ht-7)qeoid5r59qb()+ij3-b%v&tqg=uwfqb'
+# SECRET_KEY = '#zgu%5u47!@vk%ht-7)qeoid5r59qb()+ij3-b%v&tqg=uwfqb'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nate-djangoblog.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -141,5 +144,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ilovehien230297@gmail.com'
-EMAIL_HOST_PASSWORD = 'fnjtkfnkiaazjmob'
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+
+# AWS bucket storage
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False       # prevent overwrite
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_REGION_NAME = 'eu-north-1'
